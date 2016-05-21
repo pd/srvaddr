@@ -57,20 +57,20 @@ a custom template with `-t filename` (with `-` representing stdin, as usual):
 Go's templating can be unwieldy at times. You can just emit JSON, maybe pipe it into [jq][]:
 
     $ srvaddr -json zk=_zookeeper._tcp.service.consul | jq .
-		{
-			"zk": [
-				{
-					"Host": "deadbeef.node.dc1.consul.",
-					"IP": "10.2.2.2",
-					"Port": 2181
-				},
-				{
-					"Host": "beadfeed.node.dc1.consul.",
-					"IP": "10.1.1.1",
-					"Port": 2181
-				}
-			]
-		}
+    {
+      "zk": [
+        {
+          "Host": "deadbeef.node.dc1.consul.",
+          "IP": "10.2.2.2",
+          "Port": 2181
+        },
+        {
+          "Host": "beadfeed.node.dc1.consul.",
+          "IP": "10.1.1.1",
+          "Port": 2181
+        }
+      ]
+    }
 
 Not all DNS servers will return the additional `A` records necessary for the IP
 to be known; favor using the hostname, which is part of the SRV record itself,
