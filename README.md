@@ -3,6 +3,22 @@
 Small command-line utility for querying SRV DNS records and rendering the results into a template
 or an easily manipulated JSON structure.
 
+## Installation
+
+The usual:
+
+    $ go get -u github.com/pd/srvaddr
+    $ go install github.com/pd/srvaddr
+
+Alternatively, it's available as a [docker image][]:
+
+    $ docker run philodespotos/srvaddr _xmpp-server._tcp.google.com
+    xmpp-server.l.google.com:5269
+    alt1.xmpp-server.l.google.com:5269
+    alt2.xmpp-server.l.google.com:5269
+    alt3.xmpp-server.l.google.com:5269
+    alt4.xmpp-server.l.google.com:5269
+
 ## Examples
 
 The default template simply lists the hostname(s) and port(s) returned for the given query:
@@ -84,5 +100,6 @@ Here's a minimal example config:
 }
 ~~~
 
+[docker image]: https://hub.docker.com/r/philodespotos/srvaddr/
 [text/template]: https://godoc.org/pkg/text/template
 [jq]: https://stedolan.github.io/jq/
