@@ -9,6 +9,12 @@ The usual:
 
     $ go get -u github.com/pd/srvaddr
     $ go install github.com/pd/srvaddr
+    
+You can download binaries from the [Github Releases][]:
+
+    $ curl -o srvaddr https://github.com/pd/srvaddr/releases/download/v0.1/srvaddr_linux_amd64 && \
+        chmod +x ./srvaddr && \
+        ./srvaddr -h
 
 Alternatively, it's available as a [docker image][]:
 
@@ -100,6 +106,7 @@ Here's a minimal example config:
 }
 ~~~
 
+[Github Releases]: https://github.com/pd/srvaddr/releases
 [docker image]: https://hub.docker.com/r/philodespotos/srvaddr/
 [text/template]: https://godoc.org/pkg/text/template
 [jq]: https://stedolan.github.io/jq/
