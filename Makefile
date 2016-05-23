@@ -12,7 +12,8 @@ linux: srvaddr_linux_amd64
 osx: srvaddr_darwin_amd64
 
 docker: srvaddr_linux_amd64
-	docker build --rm --tag "philodespotos/srvaddr:$(VERSION)" --tag philodespotos/srvaddr:latest .
+	docker build --rm --tag "philodespotos/srvaddr:$(VERSION)" .
+	docker build --rm --tag "philodespotos/srvaddr:latest" .
 
 clean:
 	rm -f srvaddr srvaddr_darwin_amd64 srvaddr_linux_amd64
