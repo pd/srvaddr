@@ -64,9 +64,19 @@ func loadTemplate(path string, useEnvTemplate bool) (string, error) {
 	return defaultTmpl, nil
 }
 
+func usage() {
+	fmt.Fprintf(os.Stderr, "Usage: %s [flags ...] [query ... | NAME=query ...]\n", os.Args[0])
+	flag.PrintDefaults()
+
+	fmt.Fprintf(os.Stderr, "\n\nExamples:\n")
+	fmt.Fprintf(os.Stderr, "  %s _api._tcp.internal\n      List hostnames and TCP ports for the `api` service.\n\n", os.Args[0])
+	fmt.Fprintf(os.Stderr, "  %s -env ZK=_zk._tcp.service.consul MQ=_mq._tcp.service.consul\n      Look up the `zk` and `mq` services, printing them as environment variables `ZK_ADDR0=host:port`, `ZK_HOST0=host`, ...\n", os.Args[0])
+}
+
 func main() {
 	var templateBody string
 	var tpl *template.Template
+	var needHelp bool
 
 	var (
 		tplPath  = flag.String("t", "", "Path to a template to use. If '-', reads from stdin. Defaults to a built-in template.")
@@ -75,16 +85,13 @@ func main() {
 		jsonMode = flag.Bool("json", false, "Output a JSON representation of the results, instead of rendering a template.")
 		relax    = flag.Bool("relax", false, "Treat names that return no results as non-fatal.")
 	)
+	flag.BoolVar(&needHelp, "h", false, "Display this usage information.")
+	flag.BoolVar(&needHelp, "help", false, "Display this usage information.")
 
 	flag.Parse()
 
-	if flag.NArg() == 0 {
-		fmt.Fprintf(os.Stderr, "Usage: %s [flags ...] [query ... | NAME=query ...]\n", os.Args[0])
-		flag.PrintDefaults()
-
-		fmt.Fprintf(os.Stderr, "\n\nExamples:\n")
-		fmt.Fprintf(os.Stderr, "  %s _api._tcp.internal\n      List hostnames and TCP ports for the `api` service.\n\n", os.Args[0])
-		fmt.Fprintf(os.Stderr, "  %s -env ZK=_zk._tcp.service.consul MQ=_mq._tcp.service.consul\n      Look up the `zk` and `mq` services, printing them as environment variables `ZK_ADDR0=host:port`, `ZK_HOST0=host`, ...\n", os.Args[0])
+	if needHelp || flag.NArg() == 0 {
+		usage()
 		os.Exit(1)
 	}
 
