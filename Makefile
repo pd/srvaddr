@@ -1,12 +1,18 @@
 VERSION=`cat VERSION`
 
-default: docker
+default: osx linux docker
 
-srvaddr.linux.x64: srvaddr.go VERSION
-	GOOS=linux go build -ldflags='-s' -o srvaddr.linux.x64
+srvaddr_linux_amd64: srvaddr.go VERSION
+	GOOS=linux go build -ldflags='-s' -o srvaddr_linux_amd64
 
-docker: srvaddr.linux.x64
+srvaddr_darwin_amd64: srvaddr.go VERSION
+	GOOS=darwin go build -ldflags='-s' -o srvaddr_darwin_amd64
+
+linux: srvaddr_linux_amd64
+osx: srvaddr_darwin_amd64
+
+docker: srvaddr_linux_amd64
 	docker build --rm --tag "philodespotos/srvaddr:$(VERSION)" --tag philodespotos/srvaddr:latest .
 
 clean:
-	rm -f srvaddr srvaddr.linux.x64
+	rm -f srvaddr srvaddr_darwin_amd64 srvaddr_linux_amd64

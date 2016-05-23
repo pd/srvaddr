@@ -1,4 +1,4 @@
 FROM scratch
-ADD srvaddr.linux.x64 /srvaddr
+ADD srvaddr_linux_amd64 /srvaddr
 ENV PATH=/
 ENTRYPOINT ["srvaddr"]
